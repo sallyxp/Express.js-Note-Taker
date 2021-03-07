@@ -36,6 +36,7 @@ app.get("/api/notes", (req, res) => {
 });
 
 //route to the "notes" page
+//
 app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "notes.html"));
 });
