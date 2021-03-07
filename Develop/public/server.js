@@ -11,6 +11,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 app.use(express.json());
 
+//save a new note to array
+
+app.post("/api/notes", (req, res) => {
+    var newNote = req.body;
+
+    //get the saved data
+    var noteArray = JSON.parse(fs.readFileSync(path.join(__dirname, "../db/db.json")));
+    noteArray.push(newNote);
+
+    var reformattedData = JSON.stringify(noteArray);
+    fs.writeFileSync(path.join(__dirname, "../db/db.json"), reformattedData);
+
+    //the actual contents of the response doesn't matter in this case
+    //as it just needs a response so the function's Promises will run
+    res.send("Success");
+});
+
 //Routes
 
 //Basic route that gets the saved notes
@@ -34,6 +51,7 @@ app.get("*", (req, res) => {
 });
 
 //Starts the server to being listening
+//has to be last
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
 });
