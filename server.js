@@ -44,7 +44,7 @@ app.post('/api/notes', (req, res) => {
     const writeFile = JSON.stringify(db, null, 2);
 
     //adds to db.json
-    generateNotes(writeFile);
+    updateNotesarray(writeFile);
 
     //loads notes
     return res.json(db);
@@ -78,22 +78,17 @@ app.post('/api/notes', (req, res) => {
     const writeFile = JSON.stringify(db, null, 2);
 
     //'refreshes' array
-    deletedNotes(writeFile);
+    updateNotesarray(writeFile);
     //reloads notes
     return res.json(db);
 });
 
-//recreates the db file after adding a note
-function generateNotes(notes) {
-    fs.writeFile(path.join(__dirname, 'Develop/db/db.json'), notes, (err) =>
-        err ? console.error(err) : console.log('New note added successfully!'));
+//recreates the db file after adding or removing a note
+//function generateNotes(notes) {
+function updateNotesarray(notes) {
+  fs.writeFile(path.join(__dirname, 'Develop/db/db.json'), notes, (err) =>
+        err ? console.error(err) : console.log('Notes array amended successfully!'));
 }
-
-//recreates the db file after removing a note
- function deletedNotes(notes) {
-    fs.writeFile(path.join(__dirname, 'Develop/db/db.json'), notes, (err) =>
-         err ? console.error(err) : console.log('Note deleted successfully!'));
- }
 
 //Starts the server to begin listening
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
