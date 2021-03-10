@@ -27,7 +27,7 @@ app.get('/assets/css/styles.css', (req, res) => res.sendFile(path.join(__dirname
 //Saving of new note - includes the addition of new id field
 app.post('/api/notes', (req, res) => {
     //adds new input to request body
-    const newNote = req.body;
+    let newNote = req.body;
     newNote.id = uniqid();
     //writes new record details to console.log
     console.log(newNote);
@@ -41,7 +41,7 @@ app.post('/api/notes', (req, res) => {
     console.log(db);
 
     //stringify - converts the object to a string
-    const writeFile = JSON.stringify(db, null, 2);
+    let writeFile = JSON.stringify(db, null, 2);
 
     //adds to db.json
     updateNotesarray(writeFile);
@@ -75,7 +75,7 @@ app.post('/api/notes', (req, res) => {
     console.log(db);
 
     //exchanges data to server
-    const writeFile = JSON.stringify(db, null, 2);
+    let writeFile = JSON.stringify(db, null, 2);
 
     //'refreshes' array
     updateNotesarray(writeFile);
